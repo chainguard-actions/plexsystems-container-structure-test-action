@@ -1,0 +1,15 @@
+schemaVersion: 2.0.0
+
+metadataTest:
+  env:
+    - key: "CST_TEST_VAR"
+      value: "act-value"
+  labels:
+    - key: "org.example.test"
+      value: "structure"
+  workdir: "/app"
+
+fileContentTests:
+  - name: "marker file content"
+    path: "/app/marker.txt"
+    expectedContents: ["structure-test-marker"]

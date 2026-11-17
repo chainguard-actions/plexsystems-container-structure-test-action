@@ -1,0 +1,26 @@
+name: Test metadata and file content checks on locally built image
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build image under test
+        run: |
+          docker build -t cst-act-test:dev -f tests/fixtures/metadata.Dockerfile tests/fixtures
+      - id: action
+        uses: .
+        with:
+          image: cst-act-test:dev
+          config: tests/fixtures/metadata.yaml
+      - name: Assert action succeeded
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" != "success" ]; then
+            echo "FAIL: expected success"
+            exit 1
+          fi
+          echo "PASS"
