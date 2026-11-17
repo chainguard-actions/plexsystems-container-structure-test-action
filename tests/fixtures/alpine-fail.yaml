@@ -1,0 +1,6 @@
+schemaVersion: 2.0.0
+
+fileExistenceTests:
+  - name: "file that does not exist"
+    path: "/this/file/does/not/exist"
+    shouldExist: true

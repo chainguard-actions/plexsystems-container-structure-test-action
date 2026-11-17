@@ -1,0 +1,20 @@
+schemaVersion: 2.0.0
+
+commandTests:
+  - name: "echo works"
+    command: "echo"
+    args: ["hello-structure-test"]
+    expectedOutput: ["hello-structure-test"]
+
+fileExistenceTests:
+  - name: "busybox present"
+    path: "/bin/busybox"
+    shouldExist: true
+  - name: "no bogus file"
+    path: "/definitely/not/here"
+    shouldExist: false
+
+fileContentTests:
+  - name: "alpine os-release"
+    path: "/etc/os-release"
+    expectedContents: ["Alpine"]

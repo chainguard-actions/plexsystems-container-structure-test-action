@@ -1,0 +1,25 @@
+name: Test basic usage (self image with repo config)
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Build image from repo Dockerfile
+        run: docker build . -t container-structure-test:dev
+      - id: action
+        uses: .
+        with:
+          image: container-structure-test:dev
+          config: test/test.yaml
+      - name: Assert action succeeded
+        env:
+          OUTCOME: ${{ steps.action.outcome }}
+        run: |
+          echo "outcome: $OUTCOME"
+          if [ "$OUTCOME" != "success" ]; then
+            echo "FAIL: expected success"
+            exit 1
+          fi
+          echo "PASS"
