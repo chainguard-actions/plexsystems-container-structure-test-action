@@ -1,14 +1,31 @@
-# plexsystems/container-structure-test-action
+# container-structure-test-action
 
-Setup Container Structure Test in your GitHub workflows
+Setup [container-structure-test](https://github.com/GoogleContainerTools/container-structure-test) for use in your [GitHub Action](https://github.com/features/actions) workflows.
 
-Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at [https://github.com/plexsystems/container-structure-test-action](https://github.com/plexsystems/container-structure-test-action).
+## Required inputs
 
-## Versions
+- `image`: the image (including :tag) to run container structure test against (e.g. `my-image:latest`)
+- `config`: the path (relative to the root of the repository) to the test config (e.g. `tests.yaml`)
 
-| Version | Tag | Upstream commit | Hardening report |
-|---------|-----|-----------------|------------------|
-| v0.2.0 | [`v0.2.0`](https://github.com/chainguard-actions/plexsystems-container-structure-test-action/tree/v0.2.0) | [`fc4492b`](https://github.com/plexsystems/container-structure-test-action/commit/fc4492b7bf1d5bbca12490f416808ea75c1ae75e) | [`HARDENING.md`](https://github.com/chainguard-actions/plexsystems-container-structure-test-action/blob/v0.2.0/HARDENING.md) |
+## Example
+
+```yaml
+name: "Test Dockerfile structure"
+on: pull_request
+
+jobs:
+  dockerfile-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout source
+      uses: actions/checkout@main
+
+    - name: run structure tests
+      uses: plexsystems/container-structure-test-action@v0.1.0
+      with:
+        image: my-image:latest
+        config: tests.yaml
+```
 
 ## Privacy
 

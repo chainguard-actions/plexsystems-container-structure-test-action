@@ -1,0 +1,6 @@
+schemaVersion: 2.0.0
+
+fileExistenceTests:
+  - name: "missing file should exist (expected to fail)"
+    path: "/definitely/not/present/file.txt"
+    shouldExist: true
